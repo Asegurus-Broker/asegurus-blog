@@ -1,0 +1,31 @@
+name: test-deploy
+on:
+  push:
+    branches:
+      - test
+    paths:
+      - 'config/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
+
+jobs:
+
+  deploy:
+    name: Deploy WordPress to test
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up kubeconfig
+      run: |
+        mkdir -p $HOME/.kube
+        echo "${{ secrets.KUBE_CONFIG_V2 }}" > $HOME/.kube/config
+        chmod 600 $HOME/.kube/config
+
+    - name: Deploy to Kubernetes
+      run: kubectl apply -f config/deployment-test.yml --namespace=test
+
+    - name: Verify deployment
+      run: kubectl rollout status deployment/asegurus-blog-test --namespace=test --timeout=120s
