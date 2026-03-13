@@ -78,10 +78,16 @@ spec:
         volumeMounts:
         - name: wordpress-content
           mountPath: /var/www/html/wp-content
+        - name: php-config
+          mountPath: /usr/local/etc/php/conf.d/uploads.ini
+          subPath: uploads.ini
       volumes:
       - name: wordpress-content
         persistentVolumeClaim:
           claimName: wordpress-blog-pvc
+      - name: php-config
+        configMap:
+          name: wordpress-php-config
       imagePullSecrets:
       - name: registry-asegurus
 ---
