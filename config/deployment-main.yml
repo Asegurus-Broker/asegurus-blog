@@ -62,8 +62,8 @@ spec:
         - name: WORDPRESS_CONFIG_EXTRA
           value: |
             define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL);
-            define('WP_HOME', 'https://main.blog.asegurus.com');
-            define('WP_SITEURL', 'https://main.blog.asegurus.com');
+            define('WP_HOME', 'https://blog.asegurus.com');
+            define('WP_SITEURL', 'https://blog.asegurus.com');
             define('FORCE_SSL_ADMIN', true);
             if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
               $_SERVER['HTTPS'] = 'on';
